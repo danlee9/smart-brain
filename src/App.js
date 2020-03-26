@@ -28,6 +28,7 @@ const initialState = {
   boxes: [],
   route: 'home',
   isSignedIn: true,
+  isProfileOpen: false,
   user: {
     id: '',
     name: '',
@@ -118,13 +119,14 @@ class App extends Component {
   }
 
   render() {
-    const { isSignedIn, imageUrl, route, boxes } = this.state;
+    const { isSignedIn, imageUrl, route, boxes, isProfileOpen } = this.state;
     return (
       <div className="App">
          <Particles className='particles'
           params={particlesOptions}
         />
         <Navigation isSignedIn={isSignedIn} onRouteChange={this.onRouteChange} />
+        { isProfileOpen && <Modal>{'hello'}</Modal> }
         { route === 'home'
           ? <div>
               <Logo />
