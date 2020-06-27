@@ -60,7 +60,20 @@ class App extends Component {
       .then(resp => resp.json())
       .then(data => {
         if (data && data.id) {
-          console.log('success but we need to get user profile')
+          fetch(`http://192.168.99.100:3000/profile/${data.id}`, {
+            method: 'get',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': token // should be more like 'Bearer ' + token ........... but keep it simple. read up on this though
+            }
+          })
+          .then(resp => resp.json())
+          .then(user => {
+            if (user && user.email) {
+              this.loadUser(user);
+              this.onRouteChange('home');
+            }
+          })
         }
       })
       .catch(console.log)
